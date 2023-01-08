@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Avia Order</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
     <script src="libs/vue@3.1.1.js" defer></script>
     <script src="libs/vue-router@4.0.9.js" defer></script>
@@ -15,39 +18,52 @@
     <script src="libs/bootstrap-select.js" defer></script>
     <link href="libs/bootstrap-select.css" rel="stylesheet"/>
     <link href="libs/flag-icons@4.1.4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
 
     <script src="pages/about.js" defer></script>
+    <script src="pages/my.js" defer></script>
     <script src="pages/reserve.js" defer></script>
     <script src="services/BackendService.js" defer></script>
     <script src="javascript/app.js" defer></script>
     <link href="styles/app.css" rel="stylesheet">
 </head>
 <body id="app" class="w-100 h-100 bg-white">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#">AviaOrder</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+    <!-- Swiper -->
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide menu">
+                <ul class="navbar-nav">
+                    <li class="nav-item text-center">
                         <router-link class="nav-link active" to="/reserve">{{$t('menu_reserve')}}</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item text-center">
+                        <router-link class="nav-link" to="/my">{{$t('menu_my')}}</router-link>
+                    </li>
+                    <li class="nav-item text-center">
                         <router-link class="nav-link"  to="/about">{{$t('menu_about')}}</router-link>
                     </li>
-                    <li class="nav-item ps-lg-5">
-                        <select v-model="$root.locale" class="language" title="-" data-style="bg-white border-0">
+                    <li class="nav-item text-center">
+                        <select v-model="$root.locale" class="language w-100" title="-" data-style="bg-transparent text-white border-0">
                             <option value="en-US" data-content="<i class='btn flag-icon-gb me-1'></i>English">  </option>
                             <option value="uk-UA" data-content="<i class='btn flag-icon-ua me-1'></i>Українська"></option>
                         </select>
                     </li>
                 </ul>
             </div>
+            <div class="swiper-slide content">
+                <div class="menu-button">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <div class="container h-100">
+                    <router-view :key="$route.path"></router-view>
+                </div>
+            </div>
         </div>
-    </nav>
-    <div class="container">
-        <router-view :key="$route.path"></router-view>
     </div>
+
+
+
 </body>

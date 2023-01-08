@@ -1,10 +1,13 @@
 package application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -15,14 +18,20 @@ public class Flight {
     @Id
     @ToString.Include @Column(nullable=false, updatable=false) @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @CreationTimestamp
+    @CreationTimestamp @JsonIgnore
     @Column(nullable = false, updatable = false) private Date created;
 
-    @Basic @Column @NonNull private String _fid;
+    @Basic @Column(name="_fid") @NonNull private String fid;
 
-    @Basic @Column @NonNull private String _from;
+    @Basic @Column(name="_from") @NonNull private String from;
 
-    @Basic @Column @NonNull private String _to;
+    @Basic @Column(name="_to") @NonNull private String to;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "flight_id")
+    private List<FlightEvent> events;
 
+    public Flight(String fid, String from, String to,List<FlightEvent> events){
+        this(fid,from,to);
+        this.setEvents(events);
+    }
 }
